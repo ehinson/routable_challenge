@@ -1,10 +1,34 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { func, oneOfType, object } from "prop-types";
+import { compose, setPropTypes } from "recompose";
+import { connect } from "react-redux";
 
-function App(props) {
-  return <div>App</div>;
-}
+import { getHasUserToken } from "../../state/selectors";
 
-App.propTypes = {};
+import TokenForm from "../containers/TokenForm";
+import Prioritization from "../containers/PrioritizationInterface";
+import PrivateRoute from "./PrivateRoute";
+
+const propTypes = {};
+
+const App = ({ hasToken = false }) => {
+  return (
+    <Router>
+      <Switch>
+        <PrivateRoute
+          path="/prioritize"
+          component={Prioritization}
+          hasToken={hasToken}
+        />
+        <Route path="/">
+          <TokenForm />
+        </Route>
+      </Switch>
+    </Router>
+  );
+};
+
+App.propTypes = propTypes;
 
 export default App;
