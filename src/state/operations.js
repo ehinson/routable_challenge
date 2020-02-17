@@ -28,11 +28,13 @@ export const fetchRepos = (values, history) => async (dispatch, getState) => {
   }
 };
 
-export const fetchIssues = () => async (dispatch, getState) => {
+export const fetchIssues = value => async (dispatch, getState) => {
   try {
-    console.log("fetching issues");
+    console.log("fetching issue", value);
+    const { data } = await axios.get(
+      `https://api.github.com//repos/6962590/241201449/issues`
+    );
   } catch (error) {
     console.error(error);
-    history.push("/");
   }
 };
