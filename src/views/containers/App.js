@@ -1,10 +1,23 @@
-import { compose } from "recompose";
+import { compose, setPropTypes } from "recompose";
 import { connect } from "react-redux";
+import { func, oneOfType, object } from "prop-types";
+
+import { getHasUserToken } from "../../state/selectors";
 
 import App from "../components/App";
 
-const mapStateToProps = state => ({});
+const propTypes = {
+  mapStateToProps: func,
+  mapDispatchToProps: oneOfType([func, object])
+};
 
-const mapDispatchToProps = dispatch => ({});
+const mapStateToProps = state => ({
+  hasToken: getHasUserToken(state)
+});
 
-export default compose(connect(mapStateToProps, mapDispatchToProps))(App);
+const mapDispatchToProps = () => ({});
+
+export default compose(
+  setPropTypes(propTypes),
+  connect(mapStateToProps, mapDispatchToProps)
+)(App);

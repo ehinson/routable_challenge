@@ -19,7 +19,7 @@ const mapStateToProps = state => ({});
 const mapDispatchToProps = (dispatch, { history }) =>
   bindActionCreators(
     {
-      fetchRepos: values => console.log("fetch repos", values)
+      fetchRepos: values => fetchRepos(values, history)
     },
     dispatch
   );

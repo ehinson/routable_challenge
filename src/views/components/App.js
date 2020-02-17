@@ -12,7 +12,7 @@ import PrivateRoute from "./PrivateRoute";
 
 const propTypes = {};
 
-const App = ({ hasToken = false }) => {
+const App = ({ hasToken }) => {
   return (
     <Router>
       <Switch>
