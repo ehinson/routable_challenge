@@ -9,22 +9,16 @@ const sortAttributes = {
   created: "created_at",
   updated: "updated_at",
   pushed: "pushed_at",
-  full_name: "full_name"
+  "full name": "full_name"
 };
 
 const propTypes = {
   repos: array.isRequired,
-  setRepoSortParams: func.isRequired,
   sort: string.isRequired,
   direction: string.isRequired
 };
 
-const PrioritizationInterface = ({
-  repos,
-  setRepoSortParams,
-  sort,
-  direction
-}) => {
+const PrioritizationInterface = ({ repos, sort, direction }) => {
   const [activeRepo, setActiveRepo] = useState({});
   const activeRepoExists = activeRepo.owner && activeRepo.repo;
 
@@ -35,41 +29,21 @@ const PrioritizationInterface = ({
   return (
     <>
       <h2>Prioritization Interface</h2>
-      <div
-        onClick={() => setRepoSortParams({ data: { key: "created" } })}
-        isactive={sort === "created" ? "true" : "false"}
-      >
-        created(default)
+      <div>
+        <Field name="sort" component="select">
+          {Object.keys(sortAttributes).map(attribute => (
+            <option key={attribute} value={sortAttributes[attribute]}>
+              {attribute}
+            </option>
+          ))}
+        </Field>
       </div>
-      <div
-        onClick={() => setRepoSortParams({ data: { key: "updated" } })}
-        isactive={sort === "updated" ? "true" : "false"}
-      >
-        updated
-      </div>
-      <div
-        onClick={() => setRepoSortParams({ data: { key: "pushed" } })}
-        isactive={sort === "pushed" ? "true" : "false"}
-      >
-        pushed
-      </div>
-      <div
-        onClick={() => setRepoSortParams({ data: { key: "full_name" } })}
-        isactive={sort === "full_name" ? "true" : "false"}
-      >
-        full_name
-      </div>
-      <div
-        onClick={() => setRepoSortParams({ data: { order: "asc" } })}
-        isactive={direction === "asc" ? "true" : "false"}
-      >
-        asc
-      </div>
-      <div
-        onClick={() => setRepoSortParams({ data: { order: "desc" } })}
-        isactive={direction === "desc" ? "true" : "false"}
-      >
-        desc
+      <div>
+        <Field name="direction" component="select">
+          {["asc", "desc"].map(direction => (
+            <option>{direction}</option>
+          ))}
+        </Field>
       </div>
       <hr />
       <div>ActiveRepo</div>
@@ -78,11 +52,8 @@ const PrioritizationInterface = ({
         <Issues clearActiveRepo={clearActiveRepo} {...activeRepo} />
       )}
       <div>
-        {_.orderBy(
-          repos,
-          [data => data[sortAttributes[sort]]],
-          [direction]
-        ).map(repo => (
+        {console.log(sort, direction)}
+        {repos.map(repo => (
           <div
             key={repo.id}
             onClick={() =>

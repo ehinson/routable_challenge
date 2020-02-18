@@ -13,13 +13,15 @@ const mapStateToProps = state => ({
   direction: getSortOrder(state)
 });
 
-const mapDispatchToProps = dispatch => ({
-  setRepoSortParams: params => dispatch(setRepoSortParams(params))
-});
+const mapDispatchToProps = dispatch => ({});
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
-    form: "priorities"
+    form: "prioritization",
+    initialValues: {
+      sort: "created",
+      direction: "desc"
+    }
   })
 )(PrioritizationInterface);
