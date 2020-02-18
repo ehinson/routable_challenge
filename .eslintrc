@@ -1,7 +1,7 @@
 {
     "parser": "babel-eslint",
     "extends": ["react", "prettier"],
-    "plugins": ["prettier", "react", "react-hooks"],
+    "plugins": ["prettier", "react", "react-hooks", "jest"],
     "rules": {
       "space-before-function-paren": "off",
       "prettier/prettier": ["error"],
@@ -10,6 +10,6 @@
       "react-hooks/rules-of-hooks": "error", // Checks rules of Hooks
       "react-hooks/exhaustive-deps": "warn" // Checks effect dependencies
     },
-    "env": { "browser": true, "node": true, "es6": true },
+    "env": { "browser": true, "node": true, "es6": true, "jest/globals": true },
     "settings": { "react": { "version": "detect" } }
   }

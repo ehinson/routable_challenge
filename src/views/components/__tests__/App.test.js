@@ -5,17 +5,19 @@ import { shallow } from "enzyme";
 // Components
 import App from "../App";
 
-function setup() {
-  const props = {
-    hasToken: true
-  };
-  const wrapper = shallow(<App />);
-  return { wrapper, props };
-}
-
 describe("App Test Suite", () => {
-  it("Should match snapshot", () => {
-    const { wrapper } = setup();
+  it("Should match snapshot when there is a user token", () => {
+    const props = {
+      hasToken: true
+    };
+    const wrapper = shallow(<App {...props} />);
+    expect(wrapper).toMatchSnapshot();
+  });
+  it("Should match snapshot when there is not a user token", () => {
+    const props = {
+      hasToken: false
+    };
+    const wrapper = shallow(<App {...props} />);
     expect(wrapper).toMatchSnapshot();
   });
 });
