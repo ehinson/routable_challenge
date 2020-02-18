@@ -33,5 +33,7 @@ module.exports = {
   transformIgnorePatterns: ["<rootDir>/node_modules/"],
 
   // Indicates whether each individual test should be reported during the run
-  verbose: false
+  verbose: false,
+  snapshotSerializers: ["enzyme-to-json/serializer"],
+  setupFilesAfterEnv: ["./jest.setup.js"]
 };

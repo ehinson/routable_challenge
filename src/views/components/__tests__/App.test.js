@@ -16,6 +16,6 @@ function setup() {
 describe("App Test Suite", () => {
   it("Should match snapshot", () => {
     const { wrapper } = setup();
-    expect(wrapper.find("App")).toMatchSnapshot();
+    expect(wrapper).toMatchSnapshot();
   });
 });
