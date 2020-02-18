@@ -9,22 +9,32 @@ export const getHasUserToken = createSelector(getAppState, appState =>
   Boolean(appState.userToken)
 );
 
-export const getUserRepos = createSelector(
+export const getUserToken = createSelector(
   getAppState,
-  appState => appState.repos
+  appState => appState.userToken
 );
 
-export const getSortParams = createSelector(
+export const getUserRepos = createSelector(
   getAppState,
-  appState => appState.sortParams
+  appState => appState.repos.results
+);
+
+export const getRepoSortParams = createSelector(
+  getAppState,
+  appState => appState.repos.sortParams
 );
 
 export const getSortOrder = createSelector(
-  getSortParams,
+  getRepoSortParams,
   sortParams => sortParams.order
 );
 
 export const getSortKey = createSelector(
-  getSortParams,
+  getRepoSortParams,
   sortParams => sortParams.key
+);
+
+export const getRepoIssues = createSelector(
+  getAppState,
+  appState => appState.issues.results
 );

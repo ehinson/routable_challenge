@@ -7,38 +7,62 @@ import {
   removeRepo,
   updateRepo,
   setToken,
-  setSortParams
+  setRepoSortParams,
+  setIssues,
+  setIssueSortParams
 } from "./actions";
 
 const initialState = {
-  repos: [],
-  userToken: window.localStorage.getItem("userToken") || null,
-  sortParams: {
-    order: "desc",
-    key: "created"
-  }
+  repos: {
+    sortParams: {
+      order: "desc",
+      key: "created"
+    },
+    results: []
+  },
+  issues: {
+    sortParams: {
+      order: "desc",
+      key: "created"
+    },
+    results: []
+  },
+  userToken: window.localStorage.getItem("userToken") || null
 };
 
 const reducer = handleActions(
   {
     [setRepos]: produce((draft, { payload: { values } }) => {
-      draft["repos"] = values;
+      draft["repos"]["results"] = values;
     }),
     [addRepo]: produce((draft, { payload: { value } }) => {
-      draft.repos.concat(value);
+      draft.repos.results.concat(value);
     }),
     [removeRepo]: produce((draft, { payload: { index } }) => {
-      draft.repos.splice(index, 1);
+      draft.repos.results.splice(index, 1);
     }),
     [updateRepo]: produce((draft, { payload: { value, index } }) => {
-      draft.repos[index] = value;
+      draft.repos.results[index] = value;
     }),
     [setToken]: produce((draft, { payload: { value } }) => {
       draft["userToken"] = value;
     }),
-    [setSortParams]: produce((draft, { payload: { values } }) => {
-      draft["sortParams"] = {
-        ...draft.sortParams,
+    [setRepoSortParams]: produce((draft, { payload: { values } }) => {
+      console.log(draft, values);
+      draft.repos = {
+        ...draft.repos,
+        sortParams: {
+          ...draft.repos.sortParams,
+          ...values.data
+        }
+      };
+    }),
+    [setIssues]: produce((draft, { payload: { values } }) => {
+      draft["issues"]["results"] = values;
+    }),
+    [setIssueSortParams]: produce((draft, { payload: { values } }) => {
+      draft.issues["sortParams"] = {
+        ...draft.issues.sortParams,
         ...values.data
       };
     })

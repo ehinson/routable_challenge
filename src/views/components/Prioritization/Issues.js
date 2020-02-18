@@ -1,8 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-const Issues = props => {
-  return <div>Issue</div>;
+const Issues = ({ issues }) => {
+  return (
+    <div>
+      {issues.map(issue => (
+        <div>{issue.title}</div>
+      ))}
+    </div>
+  );
 };
 
 Issues.propTypes = {};

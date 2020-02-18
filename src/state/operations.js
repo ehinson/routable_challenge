@@ -28,12 +28,20 @@ export const fetchRepos = (values, history) => async (dispatch, getState) => {
   }
 };
 
-export const fetchIssues = value => async (dispatch, getState) => {
+export const fetchIssues = (owner, repo) => async (dispatch, getState) => {
+  const token = repoSelectors.getUserToken(getState());
   try {
-    console.log("fetching issue", value);
+    console.log("fetching issue", repo);
     const { data } = await axios.get(
-      `https://api.github.com//repos/6962590/241201449/issues`
+      `https://api.github.com/repos/${owner}/${repo}/issues`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      }
     );
+
+    dispatch(repoActions.setIssues(data));
   } catch (error) {
     console.error(error);
   }

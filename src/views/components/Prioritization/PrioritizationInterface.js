@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { array, func, string } from "prop-types";
 import _ from "lodash";
+import Issues from "../../containers/Issues";
 
 const sortAttributes = {
   created: "created_at",
@@ -11,64 +12,79 @@ const sortAttributes = {
 
 const propTypes = {
   repos: array.isRequired,
-  setSortParams: func.isRequired,
+  setRepoSortParams: func.isRequired,
   sort: string.isRequired,
   direction: string.isRequired
 };
 
-const PrioritizationInterface = ({ repos, setSortParams, sort, direction }) => {
+const PrioritizationInterface = ({
+  repos,
+  setRepoSortParams,
+  sort,
+  direction
+}) => {
   const [activeRepo, setActiveRepo] = useState({});
+  const activeRepoExists = activeRepo.owner && activeRepo.repo;
+
+  const clearActiveRepo = () => {
+    setActiveRepo({});
+  };
+
   return (
     <>
       <h2>Prioritization Interface</h2>
       <div
-        onClick={() => setSortParams({ data: { key: "created" } })}
-        isActive={sort === "created"}
+        onClick={() => setRepoSortParams({ data: { key: "created" } })}
+        isactive={sort === "created" ? "true" : "false"}
       >
         created(default)
       </div>
       <div
-        onClick={() => setSortParams({ data: { key: "updated" } })}
-        isActive={sort === "updated"}
+        onClick={() => setRepoSortParams({ data: { key: "updated" } })}
+        isactive={sort === "updated" ? "true" : "false"}
       >
         updated
       </div>
       <div
-        onClick={() => setSortParams({ data: { key: "pushed" } })}
-        isActive={sort === "pushed"}
+        onClick={() => setRepoSortParams({ data: { key: "pushed" } })}
+        isactive={sort === "pushed" ? "true" : "false"}
       >
         pushed
       </div>
       <div
-        onClick={() => setSortParams({ data: { key: "full_name" } })}
-        isActive={sort === "full_name"}
+        onClick={() => setRepoSortParams({ data: { key: "full_name" } })}
+        isactive={sort === "full_name" ? "true" : "false"}
       >
         full_name
       </div>
       <div
-        onClick={() => setSortParams({ data: { order: "asc" } })}
-        isActive={direction === "asc"}
+        onClick={() => setRepoSortParams({ data: { order: "asc" } })}
+        isactive={direction === "asc" ? "true" : "false"}
       >
         asc
       </div>
       <div
-        onClick={() => setSortParams({ data: { order: "desc" } })}
-        isActive={direction === "desc"}
+        onClick={() => setRepoSortParams({ data: { order: "desc" } })}
+        isactive={direction === "desc" ? "true" : "false"}
       >
         desc
       </div>
       <hr />
       <div>ActiveRepo</div>
       <div>{JSON.stringify(activeRepo)}</div>
+      {activeRepoExists && (
+        <Issues clearActiveRepo={clearActiveRepo} {...activeRepo} />
+      )}
       {_.orderBy(repos, [data => data[sortAttributes[sort]]], [direction]).map(
         repo => (
           <div
             key={repo.id}
             onClick={() =>
-              setActiveRepo({ ownerID: repo.owner.id, repoID: repo.id })
+              setActiveRepo({ owner: repo.owner.login, repo: repo.name })
             }
           >
             {repo.name}
+            {repo.private.toString()}
           </div>
         )
       )}

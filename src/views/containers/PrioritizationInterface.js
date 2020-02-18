@@ -2,7 +2,7 @@ import { compose } from "recompose";
 import { connect } from "react-redux";
 
 import { getUserRepos, getSortKey, getSortOrder } from "../../state/selectors";
-import { setSortParams } from "../../state/actions";
+import { setRepoSortParams } from "../../state/actions";
 
 import PrioritizationInterface from "../components/Prioritization/PrioritizationInterface";
 
@@ -13,7 +13,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  setSortParams: params => dispatch(setSortParams(params))
+  setRepoSortParams: params => dispatch(setRepoSortParams(params))
 });
 
 export default compose(connect(mapStateToProps, mapDispatchToProps))(
