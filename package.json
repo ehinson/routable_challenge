@@ -4,7 +4,9 @@
   "description": "Routable challenge",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage --colors",
     "lint:css": "stylelint './src/**/*.js'",
     "watch": "webpack --watch",
     "start": "webpack-dev-server --open",
