@@ -1,6 +1,5 @@
 import React from "react";
 import { func, oneOfType, object, string } from "prop-types";
-import { reduxForm } from "redux-form";
 import { compose, setPropTypes, lifecycle } from "recompose";
 import { bindActionCreators } from "redux";
 
@@ -24,7 +23,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch, { owner, repo }) =>
   bindActionCreators(
     {
-      fetchIssues: values => fetchIssues(owner, repo),
+      fetchIssues: () => fetchIssues(owner, repo),
       setIssues: actions.setIssues,
       resetIssues: actions.resetIssues
     },
@@ -32,6 +31,7 @@ const mapDispatchToProps = (dispatch, { owner, repo }) =>
   );
 
 export default compose(
+  setPropTypes(propTypes),
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
     componentDidMount() {

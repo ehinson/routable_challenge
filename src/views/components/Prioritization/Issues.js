@@ -1,5 +1,9 @@
 import React from "react";
-import PropTypes from "prop-types";
+import { array } from "prop-types";
+
+const propTypes = {
+  issues: array.isRequired
+};
 
 const Issues = ({ issues }) => {
   return (
@@ -11,6 +15,6 @@ const Issues = ({ issues }) => {
   );
 };
 
-Issues.propTypes = {};
+Issues.propTypes = propTypes;
 
 export default Issues;

@@ -1,16 +1,13 @@
 import { compose } from "recompose";
 import { connect } from "react-redux";
 
-import { getUserRepos, getSortKey, getSortOrder } from "../../state/selectors";
-import { setRepoSortParams } from "../../state/actions";
+import { getUserRepos } from "../../state/selectors";
 
 import PrioritizationInterface from "../components/Prioritization/PrioritizationInterface";
 import { reduxForm } from "redux-form";
 
 const mapStateToProps = state => ({
-  repos: getUserRepos(state),
-  sort: getSortKey(state),
-  direction: getSortOrder(state)
+  repos: getUserRepos(state)
 });
 
 const mapDispatchToProps = dispatch => ({});

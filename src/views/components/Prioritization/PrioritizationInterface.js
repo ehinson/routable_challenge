@@ -1,24 +1,16 @@
 import React, { useState } from "react";
-import { array, func, string } from "prop-types";
+import { array } from "prop-types";
 import { Field } from "redux-form";
-import _ from "lodash";
 
 import Issues from "../../containers/Issues";
 
-const sortAttributes = {
-  created: "created_at",
-  updated: "updated_at",
-  pushed: "pushed_at",
-  "full name": "full_name"
-};
+import { sortAttributes } from "../../../state/utils/constants";
 
 const propTypes = {
-  repos: array.isRequired,
-  sort: string.isRequired,
-  direction: string.isRequired
+  repos: array.isRequired
 };
 
-const PrioritizationInterface = ({ repos, sort, direction }) => {
+const PrioritizationInterface = ({ repos }) => {
   const [activeRepo, setActiveRepo] = useState({});
   const activeRepoExists = activeRepo.owner && activeRepo.repo;
 
@@ -41,18 +33,18 @@ const PrioritizationInterface = ({ repos, sort, direction }) => {
       <div>
         <Field name="direction" component="select">
           {["asc", "desc"].map(direction => (
-            <option>{direction}</option>
+            <option key={direction} value={direction}>
+              {direction}
+            </option>
           ))}
         </Field>
       </div>
-      <hr />
       <div>ActiveRepo</div>
       <div>{JSON.stringify(activeRepo)}</div>
       {activeRepoExists && (
         <Issues clearActiveRepo={clearActiveRepo} {...activeRepo} />
       )}
       <div>
-        {console.log(sort, direction)}
         {repos.map(repo => (
           <div
             key={repo.id}

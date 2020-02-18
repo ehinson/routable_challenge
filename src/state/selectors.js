@@ -42,9 +42,5 @@ export const getRepoIssues = createSelector(
 export const getUserRepos = createSelector(
   [getAppState, getSortOrder, getSortKey],
   (appState, sort, direction) =>
-    _.orderBy(
-      appState.repos.results,
-      [data => data[sortAttributes[sort]]],
-      [direction]
-    )
+    _.orderBy(appState.repos.results, [data => data[sort]], [direction])
 );
