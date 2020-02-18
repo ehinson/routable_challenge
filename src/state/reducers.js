@@ -9,6 +9,7 @@ import {
   setToken,
   setRepoSortParams,
   setIssues,
+  resetIssues,
   setIssueSortParams
 } from "./actions";
 
@@ -59,6 +60,9 @@ const reducer = handleActions(
     }),
     [setIssues]: produce((draft, { payload: { values } }) => {
       draft["issues"]["results"] = values;
+    }),
+    [resetIssues]: produce(draft => {
+      draft["issues"]["results"] = [];
     }),
     [setIssueSortParams]: produce((draft, { payload: { values } }) => {
       draft.issues["sortParams"] = {

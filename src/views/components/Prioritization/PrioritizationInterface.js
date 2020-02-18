@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { array, func, string } from "prop-types";
+import { Field } from "redux-form";
 import _ from "lodash";
+
 import Issues from "../../containers/Issues";
 
 const sortAttributes = {
@@ -75,8 +77,12 @@ const PrioritizationInterface = ({
       {activeRepoExists && (
         <Issues clearActiveRepo={clearActiveRepo} {...activeRepo} />
       )}
-      {_.orderBy(repos, [data => data[sortAttributes[sort]]], [direction]).map(
-        repo => (
+      <div>
+        {_.orderBy(
+          repos,
+          [data => data[sortAttributes[sort]]],
+          [direction]
+        ).map(repo => (
           <div
             key={repo.id}
             onClick={() =>
@@ -84,10 +90,9 @@ const PrioritizationInterface = ({
             }
           >
             {repo.name}
-            {repo.private.toString()}
           </div>
-        )
-      )}
+        ))}
+      </div>
     </>
   );
 };

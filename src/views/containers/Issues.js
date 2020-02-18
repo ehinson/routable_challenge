@@ -25,7 +25,8 @@ const mapDispatchToProps = (dispatch, { owner, repo }) =>
   bindActionCreators(
     {
       fetchIssues: values => fetchIssues(owner, repo),
-      setIssues: actions.setIssues
+      setIssues: actions.setIssues,
+      resetIssues: actions.resetIssues
     },
     dispatch
   );
@@ -34,17 +35,13 @@ export default compose(
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
     componentDidMount() {
-      this.props.fetchIssues().then(issues => {
-        console.log(issues);
-      });
+      this.props.fetchIssues();
     },
-    async componentDidUpdate(prevProps) {
-      // When length changes, assume 'expanded' index values are out of date,
-      // so reset all expanded
-      // TODO: Remove this once all tables are async (expanded is reset by reducers)
+    componentDidUpdate(prevProps) {
       const { owner, repo } = this.props;
 
       if (repo !== prevProps.repo || owner !== prevProps.owner) {
+        this.props.resetIssues();
         this.props.fetchIssues();
       }
     }

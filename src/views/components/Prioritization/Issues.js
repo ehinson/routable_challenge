@@ -5,7 +5,7 @@ const Issues = ({ issues }) => {
   return (
     <div>
       {issues.map(issue => (
-        <div>{issue.title}</div>
+        <div key={issue.id}>{issue.title}</div>
       ))}
     </div>
   );
