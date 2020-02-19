@@ -32,7 +32,6 @@ export const fetchIssues = () => async (dispatch, getState) => {
 
   if (!repoIsEmpty) {
     try {
-      console.log('fetching issue', activeRepo);
       dispatch(repoActions.setIssuesLoading(true));
       const { data } = await axios.get(
         `https://api.github.com/repos/${activeRepo.owner.login}/${activeRepo.name}/issues?sort=${sort}&direction=${direction}`,

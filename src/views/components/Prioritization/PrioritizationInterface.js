@@ -1,6 +1,6 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
-import { array, func, object } from 'prop-types';
+import { array, func, object, bool } from 'prop-types';
 import styled from 'styled-components';
 import _ from 'lodash';
 
@@ -12,46 +12,60 @@ const propTypes = {
   repos: array.isRequired,
   issues: array.isRequired,
   fetchIssues: func.isRequired,
-  isIssueLoading: func.isRequired,
+  isIssueLoading: bool.isRequired,
   setActiveRepo: func.isRequired,
   resetActiveRepo: func.isRequired,
   activeRepo: object.isRequired,
 };
 
 const StyledWrapper = styled.div`
-  background-color: antiquewhite;
+  background-color: white;
   display: flex;
   flex: 1;
+  flex-direction: column;
+  margin: 0 30px;
+
   @media (min-width: 768px) {
+    flex-direction: row;
+    margin: 0 100px;
   }
 `;
 
 const StyledHeader = styled.div`
-  background-color: pink;
-  flex: 100%;
+  background-color: white;
+  flex: 0;
+  @media (min-width: 768px) {
+    flex: 1;
+  }
 `;
 
 const StyledRepoWrapper = styled.div`
-  background-color: purple;
-  flex: 1;
-  height: calc(100vh - 200px);
+  background-color: white;
+  flex: 0 0 200px;
   overflow: scroll;
+  @media (min-width: 768px) {
+    flex: 1;
+    height: calc(100vh - 200px);
+  }
 `;
 
 const StyledIssueWrapper = styled.div`
-  background-color: blue;
-  flex: 0 0 61%;
+  background-color: #eeeeee;
+  flex: 1;
   height: calc(100vh - 200px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: relative;
+
+  @media (min-width: 768px) {
+    flex: 0 0 61%;
+  }
 `;
 
 const StyledFooter = styled.div`
   background-color: green;
-  /* height: 100px; */
   position: sticky;
   bottom: 0;
 `;

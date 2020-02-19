@@ -1,11 +1,19 @@
 import React from 'react';
 import { Field } from 'redux-form';
+import { object, func, bool } from 'prop-types';
 import 'core-js';
 import 'regenerator-runtime';
 
 import InputField from './InputField';
 
-const propTypes = {};
+const propTypes = {
+  error: object.isRequired,
+  handleSubmit: func.isRequired,
+  pristine: bool.isRequired,
+  reset: func.isRequired,
+  submitting: bool.isRequired,
+  fetchRepos: func.isRequired,
+};
 
 const TokenForm = props => {
   const { error, handleSubmit, pristine, reset, submitting, fetchRepos } = props;

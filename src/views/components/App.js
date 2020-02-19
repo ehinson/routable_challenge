@@ -2,13 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
-import { func, oneOfType, object } from 'prop-types';
+import { bool } from 'prop-types';
 
 import TokenForm from '../containers/TokenForm';
 import Prioritization from '../containers/PrioritizationInterface';
 import PrivateRoute from './PrivateRoute';
 
-const propTypes = {};
+const propTypes = {
+  hasToken: bool.isRequired,
+};
 
 const GlobalStyle = createGlobalStyle`
   ${normalize}

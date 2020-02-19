@@ -1,18 +1,15 @@
 import React from 'react';
-import { array, bool, func } from 'prop-types';
+import { array, func } from 'prop-types';
 import { Field } from 'redux-form';
-
-import LoadingDots from '../Loading';
 
 import { sortAttributes } from '../../../state/utils/constants';
 
 const propTypes = {
   issues: array.isRequired,
-  isLoading: bool.isRequired,
   fetchIssues: func.isRequired,
 };
 
-const Issues = ({ issues, isLoading, fetchIssues }) => {
+const Issues = ({ issues, fetchIssues }) => {
   return (
     <div>
       <div>
@@ -33,7 +30,6 @@ const Issues = ({ issues, isLoading, fetchIssues }) => {
           ))}
         </Field>
       </div>
-      {isLoading && <LoadingDots />}
       {issues.length > 0 && issues.map(issue => <div key={issue.id}>{issue.title}</div>)}
     </div>
   );

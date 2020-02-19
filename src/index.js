@@ -11,7 +11,6 @@ import ErrorBoundary from './ErrorBoundary';
 import { loadState, saveState } from './state/utils/localStorage';
 
 const persistentState = loadState();
-console.log(persistentState);
 
 const store = configureStore(persistentState);
 store.subscribe(() => {
