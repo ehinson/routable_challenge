@@ -1,17 +1,21 @@
 /* eslint-disable no-nested-ternary */
-import React, { useState } from 'react';
-import { array } from 'prop-types';
-import { Field } from 'redux-form';
+import React from 'react';
+import { array, func, object } from 'prop-types';
 import styled from 'styled-components';
+import _ from 'lodash';
 
 import Issues from '../../containers/Issues';
 
-import { sortAttributes } from '../../../state/utils/constants';
 import LoadingDots from '../Loading';
 
 const propTypes = {
   repos: array.isRequired,
   issues: array.isRequired,
+  fetchIssues: func.isRequired,
+  isIssueLoading: func.isRequired,
+  setActiveRepo: func.isRequired,
+  resetActiveRepo: func.isRequired,
+  activeRepo: object.isRequired,
 };
 
 const StyledWrapper = styled.div`
@@ -52,18 +56,16 @@ const StyledFooter = styled.div`
   bottom: 0;
 `;
 
-const PrioritizationInterface = ({ repos, issues, fetchIssues, isIssueLoading }) => {
-  const [activeRepo, setActiveRepo] = useState({});
-  const activeRepoExists = activeRepo.owner && activeRepo.repo;
-
-  const clearActiveRepo = () => {
-    setActiveRepo({});
-  };
-
-  const handleRepoClick = repo => {
-    setActiveRepo({ owner: repo.owner.login, repo: repo.name, id: repo.id });
-    fetchIssues(repo.owner.login, repo.name);
-  };
+const PrioritizationInterface = ({
+  repos,
+  issues,
+  fetchIssues,
+  isIssueLoading,
+  setActiveRepo,
+  resetActiveRepo,
+  activeRepo,
+}) => {
+  const activeRepoExists = activeRepo && !_.isEmpty(activeRepo);
 
   return (
     <>
@@ -73,32 +75,14 @@ const PrioritizationInterface = ({ repos, issues, fetchIssues, isIssueLoading })
       <StyledWrapper>
         <StyledRepoWrapper>
           <div>
-            <Field name="sort" component="select">
-              {Object.keys(sortAttributes).map(attribute => (
-                <option key={attribute} value={sortAttributes[attribute]}>
-                  {attribute}
-                </option>
-              ))}
-            </Field>
-          </div>
-          <div>
-            <Field name="direction" component="select">
-              {['asc', 'desc'].map(direction => (
-                <option key={direction} value={direction}>
-                  {direction}
-                </option>
-              ))}
-            </Field>
-          </div>
-          {/* <div>ActiveRepo</div>
-      <div>{JSON.stringify(activeRepo)}</div> */}
-
-          <div>
             {repos.map(repo => (
               <div
                 key={repo.id}
-                onClick={() => handleRepoClick(repo)}
-                active={repo.id === activeRepo.id}
+                onClick={() => {
+                  setActiveRepo(repo);
+                  fetchIssues();
+                }}
+                active={activeRepo && repo.id === activeRepo.id ? 'true' : 'false'}
               >
                 {repo.name}
               </div>
@@ -110,7 +94,7 @@ const PrioritizationInterface = ({ repos, issues, fetchIssues, isIssueLoading })
             {isIssueLoading ? (
               <LoadingDots />
             ) : issues.length > 0 ? (
-              <Issues clearActiveRepo={clearActiveRepo} {...activeRepo} />
+              <Issues clearActiveRepo={resetActiveRepo} activeRepo={activeRepo} />
             ) : (
               'There are no open issues for this repository'
             )}

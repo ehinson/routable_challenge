@@ -2,7 +2,12 @@ import { compose } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import { getUserRepos, getRepoIssues, getIssuesLoading } from '../../state/selectors';
+import {
+  getUserRepos,
+  getRepoIssues,
+  getIssuesLoading,
+  getActiveRepo,
+} from '../../state/selectors';
 import { fetchIssues } from '../../state/operations';
 import * as actions from '../../state/actions';
 
@@ -13,6 +18,7 @@ const mapStateToProps = state => ({
   repos: getUserRepos(state),
   issues: getRepoIssues(state),
   isIssueLoading: getIssuesLoading(state),
+  activeRepo: getActiveRepo(state),
 });
 
 const mapDispatchToProps = (dispatch, { owner, repo }) =>
@@ -21,6 +27,8 @@ const mapDispatchToProps = (dispatch, { owner, repo }) =>
       fetchIssues: (owner, repo) => fetchIssues(owner, repo),
       setIssues: actions.setIssues,
       resetIssues: actions.resetIssues,
+      setActiveRepo: actions.setActiveRepo,
+      resetActiveRepo: actions.resetActiveRepo,
     },
     dispatch,
   );

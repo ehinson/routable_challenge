@@ -1,14 +1,38 @@
 import React from 'react';
-import { array } from 'prop-types';
+import { array, bool, func } from 'prop-types';
+import { Field } from 'redux-form';
+
 import LoadingDots from '../Loading';
+
+import { sortAttributes } from '../../../state/utils/constants';
 
 const propTypes = {
   issues: array.isRequired,
+  isLoading: bool.isRequired,
+  fetchIssues: func.isRequired,
 };
 
-const Issues = ({ issues, isLoading }) => {
+const Issues = ({ issues, isLoading, fetchIssues }) => {
   return (
     <div>
+      <div>
+        <Field name="sort" component="select" onChange={fetchIssues}>
+          {Object.keys(sortAttributes).map(attribute => (
+            <option key={attribute} value={sortAttributes[attribute]}>
+              {attribute}
+            </option>
+          ))}
+        </Field>
+      </div>
+      <div>
+        <Field name="direction" component="select" onChange={fetchIssues}>
+          {['asc', 'desc'].map(direction => (
+            <option key={direction} value={direction}>
+              {direction}
+            </option>
+          ))}
+        </Field>
+      </div>
       {isLoading && <LoadingDots />}
       {issues.length > 0 && issues.map(issue => <div key={issue.id}>{issue.title}</div>)}
     </div>

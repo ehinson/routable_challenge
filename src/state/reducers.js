@@ -3,6 +3,8 @@ import { handleActions } from 'redux-actions';
 
 import {
   setRepos,
+  setActiveRepo,
+  resetActiveRepo,
   addRepo,
   removeRepo,
   updateRepo,
@@ -23,6 +25,7 @@ const initialState = {
     },
     results: [],
     loading: false,
+    active: {},
   },
   issues: {
     sortParams: {
@@ -39,6 +42,12 @@ const reducer = handleActions(
   {
     [setRepos]: produce((draft, { payload: { values } }) => {
       draft['repos']['results'] = values;
+    }),
+    [setActiveRepo]: produce((draft, { payload: { value } }) => {
+      draft['repos']['active'] = value;
+    }),
+    [resetActiveRepo]: produce(draft => {
+      draft['repos']['active'] = {};
     }),
     [addRepo]: produce((draft, { payload: { value } }) => {
       draft.repos.results.concat(value);

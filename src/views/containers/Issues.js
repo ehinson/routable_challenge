@@ -24,10 +24,10 @@ const mapStateToProps = state => ({
   isLoading: s.getIssuesLoading(state),
 });
 
-const mapDispatchToProps = (dispatch, { owner, repo }) =>
+const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchIssues: () => fetchIssues(owner, repo),
+      fetchIssues,
       setIssues: actions.setIssues,
       resetIssues: actions.resetIssues,
     },
@@ -38,14 +38,10 @@ export default compose(
   setPropTypes(propTypes),
   connect(mapStateToProps, mapDispatchToProps),
   lifecycle({
-    // componentDidMount() {
-    //   this.props.fetchIssues();
-    // },
     componentDidUpdate(prevProps) {
-      const { owner, repo } = this.props;
+      const { activeRepo } = this.props;
 
-      if (repo !== prevProps.repo || owner !== prevProps.owner) {
-        this.props.resetIssues();
+      if (activeRepo.id !== prevProps.activeRepo.id) {
         this.props.fetchIssues();
       }
     },

@@ -2,7 +2,9 @@ import { createActions } from 'redux-actions';
 
 export const {
   setRepos,
+  setActiveRepo,
   resetRepos,
+  resetActiveRepo,
   addRepo,
   removeRepo,
   updateRepo,
@@ -15,7 +17,9 @@ export const {
   setIssuesLoading,
 } = createActions({
   SET_REPOS: (values = []) => ({ values }),
+  SET_ACTIVE_REPO: (value = {}) => ({ value }),
   RESET_REPOS: () => undefined,
+  RESET_ACTIVE_REPO: () => undefined,
   ADD_REPO: (value = {}) => ({ value }),
   REMOVE_REPO: (index = 0) => ({ index }),
   UPDATE_REPO: (index = 0, value = {}) => ({ index, value }),

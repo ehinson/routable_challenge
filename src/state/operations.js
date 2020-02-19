@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React from 'react';
+import _ from 'lodash';
 
 import * as repoActions from './actions';
 import * as repoSelectors from './selectors';
@@ -8,17 +8,11 @@ export const fetchRepos = (values, history) => async (dispatch, getState) => {
   try {
     dispatch(repoActions.setToken(values.token));
 
-    const sort = repoSelectors.getSortKey(getState());
-    const direction = repoSelectors.getSortOrder(getState());
-
-    const { data } = await axios.get(
-      `https://api.github.com/user/repos?per_page=100&sort=${sort}&direction=${direction}`,
-      {
-        headers: {
-          Authorization: `Bearer ${values.token}`,
-        },
+    const { data } = await axios.get(`https://api.github.com/user/repos?per_page=100`, {
+      headers: {
+        Authorization: `Bearer ${values.token}`,
       },
-    );
+    });
     dispatch(repoActions.setRepos(data));
     history.push('/prioritize', { hasToken: true });
     window.localStorage.setItem('userToken', values.token);
@@ -28,21 +22,32 @@ export const fetchRepos = (values, history) => async (dispatch, getState) => {
   }
 };
 
-export const fetchIssues = (owner, repo) => async (dispatch, getState) => {
-  const token = repoSelectors.getUserToken(getState());
-  try {
-    console.log('fetching issue', repo);
-    dispatch(repoActions.setIssuesLoading(true));
-    const { data } = await axios.get(`https://api.github.com/repos/${owner}/${repo}/issues`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+export const fetchIssues = () => async (dispatch, getState) => {
+  const state = getState();
+  const token = repoSelectors.getUserToken(state);
+  const sort = repoSelectors.getSortKey(state);
+  const direction = repoSelectors.getSortOrder(state);
+  const activeRepo = repoSelectors.getActiveRepo(state);
+  const repoIsEmpty = _.isEmpty(activeRepo);
 
-    dispatch(repoActions.setIssues(data));
-    dispatch(repoActions.setIssuesLoading(false));
-  } catch (error) {
-    console.error(error);
-    dispatch(repoActions.setIssuesLoading(false));
+  if (!repoIsEmpty) {
+    try {
+      console.log('fetching issue', activeRepo);
+      dispatch(repoActions.setIssuesLoading(true));
+      const { data } = await axios.get(
+        `https://api.github.com/repos/${activeRepo.owner.login}/${activeRepo.name}/issues?sort=${sort}&direction=${direction}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        },
+      );
+
+      dispatch(repoActions.setIssues(data));
+      dispatch(repoActions.setIssuesLoading(false));
+    } catch (error) {
+      console.error(error);
+      dispatch(repoActions.setIssuesLoading(false));
+    }
   }
 };
