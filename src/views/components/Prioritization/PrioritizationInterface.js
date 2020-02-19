@@ -44,8 +44,14 @@ const StyledWrapper = styled.div`
 const StyledHeader = styled.div`
   background-color: white;
   flex: 0;
+  margin: 0 30px;
+  text-transform: uppercase;
+  font-size: 0.85em;
+  text-align: right;
+
   @media (min-width: 768px) {
     flex: 1;
+    margin: 0 100px;
   }
 `;
 
@@ -78,6 +84,9 @@ const StyledIssueWrapper = styled.div`
   justify-content: center;
   position: relative;
   transition: all 0.3s;
+  padding: 10px 15px;
+  overflow: scroll;
+
   ${p =>
     p.isIssueLoading &&
     css`
@@ -86,6 +95,7 @@ const StyledIssueWrapper = styled.div`
 
   @media (min-width: 768px) {
     flex: 0 0 61%;
+    padding: 10px 15px;
   }
 `;
 
@@ -118,10 +128,15 @@ const PrioritizationInterface = ({
 }) => {
   const activeRepoExists = activeRepo && !_.isEmpty(activeRepo);
 
+  const handleRepoClick = async repo => {
+    await setActiveRepo(repo);
+    fetchIssues();
+  };
+
   return (
     <>
       <StyledHeader>
-        <h2>Prioritization Interface</h2>
+        <p>Github Prioritization Interface</p>
       </StyledHeader>
       <StyledWrapper isIssueLoading={isIssueLoading}>
         <StyledRepoWrapper>
@@ -129,10 +144,7 @@ const PrioritizationInterface = ({
             {repos.map(repo => (
               <StyledRepo
                 key={repo.id}
-                onClick={() => {
-                  setActiveRepo(repo);
-                  fetchIssues();
-                }}
+                onClick={() => handleRepoClick(repo)}
                 active={activeRepo && repo.id === activeRepo.id}
               >
                 <div>

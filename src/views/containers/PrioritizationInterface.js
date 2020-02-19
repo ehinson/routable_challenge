@@ -1,4 +1,4 @@
-import { compose } from 'recompose';
+import { compose, lifecycle } from 'recompose';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
@@ -35,6 +35,11 @@ const mapDispatchToProps = dispatch =>
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),
+  lifecycle({
+    componentDidMount() {
+      this.props.fetchIssues();
+    },
+  }),
   reduxForm({
     form: 'prioritization',
     initialValues: {
