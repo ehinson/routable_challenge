@@ -32,3 +32,5 @@ export const getUserRepos = createSelector(
   (appState, sort, direction) =>
     _.orderBy(appState.repos.results, [data => data[sort]], [direction]),
 );
+
+export const getIssuesLoading = createSelector(getAppState, appState => appState.issues.loading);

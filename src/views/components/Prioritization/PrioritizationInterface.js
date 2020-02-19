@@ -1,15 +1,19 @@
+/* eslint-disable no-nested-ternary */
 import React, { useState } from 'react';
 import { array } from 'prop-types';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
 
-import Issues from '../x../containers/Issues';
+import Issues from '../../containers/Issues';
 
 import { sortAttributes } from '../../../state/utils/constants';
+import LoadingDots from '../Loading';
 
 const propTypes = {
   repos: array.isRequired,
+  issues: array.isRequired,
 };
+
 const StyledWrapper = styled.div`
   background-color: antiquewhite;
   display: flex;
@@ -17,6 +21,7 @@ const StyledWrapper = styled.div`
   @media (min-width: 768px) {
   }
 `;
+
 const StyledHeader = styled.div`
   background-color: pink;
   flex: 100%;
@@ -33,6 +38,11 @@ const StyledIssueWrapper = styled.div`
   background-color: blue;
   flex: 0 0 61%;
   height: calc(100vh - 200px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
 `;
 
 const StyledFooter = styled.div`
@@ -42,12 +52,17 @@ const StyledFooter = styled.div`
   bottom: 0;
 `;
 
-const PrioritizationInterface = ({ repos }) => {
+const PrioritizationInterface = ({ repos, issues, fetchIssues, isIssueLoading }) => {
   const [activeRepo, setActiveRepo] = useState({});
   const activeRepoExists = activeRepo.owner && activeRepo.repo;
 
   const clearActiveRepo = () => {
     setActiveRepo({});
+  };
+
+  const handleRepoClick = repo => {
+    setActiveRepo({ owner: repo.owner.login, repo: repo.name, id: repo.id });
+    fetchIssues(repo.owner.login, repo.name);
   };
 
   return (
@@ -82,7 +97,8 @@ const PrioritizationInterface = ({ repos }) => {
             {repos.map(repo => (
               <div
                 key={repo.id}
-                onClick={() => setActiveRepo({ owner: repo.owner.login, repo: repo.name })}
+                onClick={() => handleRepoClick(repo)}
+                active={repo.id === activeRepo.id}
               >
                 {repo.name}
               </div>
@@ -91,7 +107,13 @@ const PrioritizationInterface = ({ repos }) => {
         </StyledRepoWrapper>
         {activeRepoExists && (
           <StyledIssueWrapper>
-            <Issues clearActiveRepo={clearActiveRepo} {...activeRepo} />
+            {isIssueLoading ? (
+              <LoadingDots />
+            ) : issues.length > 0 ? (
+              <Issues clearActiveRepo={clearActiveRepo} {...activeRepo} />
+            ) : (
+              'There are no open issues for this repository'
+            )}
           </StyledIssueWrapper>
         )}
       </StyledWrapper>

@@ -8,9 +8,11 @@ import {
   updateRepo,
   setToken,
   setRepoSortParams,
+  setReposLoading,
   setIssues,
   resetIssues,
   setIssueSortParams,
+  setIssuesLoading,
 } from './actions';
 
 const initialState = {
@@ -20,6 +22,7 @@ const initialState = {
       key: 'created',
     },
     results: [],
+    loading: false,
   },
   issues: {
     sortParams: {
@@ -27,6 +30,7 @@ const initialState = {
       key: 'created',
     },
     results: [],
+    loading: false,
   },
   userToken: window.localStorage.getItem('userToken') || null,
 };
@@ -58,6 +62,9 @@ const reducer = handleActions(
         },
       };
     }),
+    [setReposLoading]: produce((draft, { payload: { value } }) => {
+      draft['repos']['loading'] = value;
+    }),
     [setIssues]: produce((draft, { payload: { values } }) => {
       draft['issues']['results'] = values;
     }),
@@ -69,6 +76,9 @@ const reducer = handleActions(
         ...draft.issues.sortParams,
         ...values.data,
       };
+    }),
+    [setIssuesLoading]: produce((draft, { payload: { value } }) => {
+      draft['issues']['loading'] = value;
     }),
   },
   initialState,

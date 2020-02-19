@@ -1,7 +1,10 @@
 import { compose } from 'recompose';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import { getUserRepos, getRepoIssues } from '../../state/selectors';
+import { getUserRepos, getRepoIssues, getIssuesLoading } from '../../state/selectors';
+import { fetchIssues } from '../../state/operations';
+import * as actions from '../../state/actions';
 
 import PrioritizationInterface from '../components/Prioritization/PrioritizationInterface';
 import { reduxForm } from 'redux-form';
@@ -9,9 +12,18 @@ import { reduxForm } from 'redux-form';
 const mapStateToProps = state => ({
   repos: getUserRepos(state),
   issues: getRepoIssues(state),
+  isIssueLoading: getIssuesLoading(state),
 });
 
-const mapDispatchToProps = dispatch => ({});
+const mapDispatchToProps = (dispatch, { owner, repo }) =>
+  bindActionCreators(
+    {
+      fetchIssues: (owner, repo) => fetchIssues(owner, repo),
+      setIssues: actions.setIssues,
+      resetIssues: actions.resetIssues,
+    },
+    dispatch,
+  );
 
 export default compose(
   connect(mapStateToProps, mapDispatchToProps),

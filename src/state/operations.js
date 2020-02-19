@@ -32,6 +32,7 @@ export const fetchIssues = (owner, repo) => async (dispatch, getState) => {
   const token = repoSelectors.getUserToken(getState());
   try {
     console.log('fetching issue', repo);
+    dispatch(repoActions.setIssuesLoading(true));
     const { data } = await axios.get(`https://api.github.com/repos/${owner}/${repo}/issues`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -39,7 +40,9 @@ export const fetchIssues = (owner, repo) => async (dispatch, getState) => {
     });
 
     dispatch(repoActions.setIssues(data));
+    dispatch(repoActions.setIssuesLoading(false));
   } catch (error) {
     console.error(error);
+    dispatch(repoActions.setIssuesLoading(false));
   }
 };
