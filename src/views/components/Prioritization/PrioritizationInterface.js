@@ -75,7 +75,7 @@ const StyledRepoWrapper = styled.div`
 `;
 
 const StyledIssueWrapper = styled.div`
-  background-color: #eeeeee;
+  background-color: #e8f4f8;
   flex: 1;
   height: calc(100vh - 200px);
   display: flex;
@@ -112,7 +112,7 @@ const StyledRepo = styled.div`
   ${p =>
     p.active &&
     css`
-      background-color: #eeeeee;
+      background-color: #e8f4f8;
       font-weight: 700;
     `}
 `;

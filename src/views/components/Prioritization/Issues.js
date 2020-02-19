@@ -43,7 +43,7 @@ const StyledIssue = styled.div`
   background-color: white;
   margin: 10px;
   padding: 10px;
-  border: 1px solid #aaaaaa;
+  border: 1px solid #72bcd4;
   border-radius: 3px;
   text-align: right;
   grid-template-areas:
@@ -55,8 +55,8 @@ const StyledIssue = styled.div`
 const MockImage = styled.div`
   width: 40px;
   height: 40px;
-  display: inline-block;
   background-color: #eeeeee;
+  border: 1px solid #aaaaaa;
   grid-area: avatar;
 `;
 
@@ -68,6 +68,7 @@ const Title = styled.div`
   grid-area: title;
   font-size: 0.85em;
   text-transform: uppercase;
+  color: #286c81;
 `;
 
 const Created = styled.div`
