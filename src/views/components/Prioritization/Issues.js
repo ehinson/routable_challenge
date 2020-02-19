@@ -1,8 +1,8 @@
-import React from "react";
-import { array } from "prop-types";
+import React from 'react';
+import { array } from 'prop-types';
 
 const propTypes = {
-  issues: array.isRequired
+  issues: array.isRequired,
 };
 
 const Issues = ({ issues }) => {

@@ -1,27 +1,27 @@
-import React from "react";
-import { func, oneOfType, object } from "prop-types";
-import { reduxForm } from "redux-form";
-import { compose, setPropTypes } from "recompose";
-import { bindActionCreators } from "redux";
-import { withRouter } from "react-router-dom";
+import React from 'react';
+import { func, oneOfType, object } from 'prop-types';
+import { reduxForm } from 'redux-form';
+import { compose, setPropTypes } from 'recompose';
+import { bindActionCreators } from 'redux';
+import { withRouter } from 'react-router-dom';
 
-import { connect } from "react-redux";
+import { connect } from 'react-redux';
 
-import TokenForm from "../components/Form/TokenForm";
-import { fetchRepos } from "../../state/operations";
+import TokenForm from '../components/Form/TokenForm';
+import { fetchRepos } from '../../state/operations';
 
 const propTypes = {
   mapStateToProps: func,
-  mapDispatchToProps: oneOfType([func, object])
+  mapDispatchToProps: oneOfType([func, object]),
 };
 
 const mapStateToProps = state => ({});
 const mapDispatchToProps = (dispatch, { history }) =>
   bindActionCreators(
     {
-      fetchRepos: values => fetchRepos(values, history)
+      fetchRepos: values => fetchRepos(values, history),
     },
-    dispatch
+    dispatch,
   );
 
 export default compose(
@@ -29,6 +29,6 @@ export default compose(
   withRouter,
   connect(mapStateToProps, mapDispatchToProps),
   reduxForm({
-    form: "githubToken"
-  })
+    form: 'githubToken',
+  }),
 )(TokenForm);

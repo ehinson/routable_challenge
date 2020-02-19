@@ -1,5 +1,5 @@
-import produce from "immer";
-import { handleActions } from "redux-actions";
+import produce from 'immer';
+import { handleActions } from 'redux-actions';
 
 import {
   setRepos,
@@ -10,31 +10,31 @@ import {
   setRepoSortParams,
   setIssues,
   resetIssues,
-  setIssueSortParams
-} from "./actions";
+  setIssueSortParams,
+} from './actions';
 
 const initialState = {
   repos: {
     sortParams: {
-      order: "desc",
-      key: "created"
+      order: 'desc',
+      key: 'created',
     },
-    results: []
+    results: [],
   },
   issues: {
     sortParams: {
-      order: "desc",
-      key: "created"
+      order: 'desc',
+      key: 'created',
     },
-    results: []
+    results: [],
   },
-  userToken: window.localStorage.getItem("userToken") || null
+  userToken: window.localStorage.getItem('userToken') || null,
 };
 
 const reducer = handleActions(
   {
     [setRepos]: produce((draft, { payload: { values } }) => {
-      draft["repos"]["results"] = values;
+      draft['repos']['results'] = values;
     }),
     [addRepo]: produce((draft, { payload: { value } }) => {
       draft.repos.results.concat(value);
@@ -46,7 +46,7 @@ const reducer = handleActions(
       draft.repos.results[index] = value;
     }),
     [setToken]: produce((draft, { payload: { value } }) => {
-      draft["userToken"] = value;
+      draft['userToken'] = value;
     }),
     [setRepoSortParams]: produce((draft, { payload: { values } }) => {
       console.log(draft, values);
@@ -54,24 +54,24 @@ const reducer = handleActions(
         ...draft.repos,
         sortParams: {
           ...draft.repos.sortParams,
-          ...values.data
-        }
+          ...values.data,
+        },
       };
     }),
     [setIssues]: produce((draft, { payload: { values } }) => {
-      draft["issues"]["results"] = values;
+      draft['issues']['results'] = values;
     }),
     [resetIssues]: produce(draft => {
-      draft["issues"]["results"] = [];
+      draft['issues']['results'] = [];
     }),
     [setIssueSortParams]: produce((draft, { payload: { values } }) => {
-      draft.issues["sortParams"] = {
+      draft.issues['sortParams'] = {
         ...draft.issues.sortParams,
-        ...values.data
+        ...values.data,
       };
-    })
+    }),
   },
-  initialState
+  initialState,
 );
 
 export default reducer;

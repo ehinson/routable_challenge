@@ -1,21 +1,20 @@
-/* eslint-disable no-undef */
-import React from "react";
-import { shallow } from "enzyme";
+import React from 'react';
+import { shallow } from 'enzyme';
 
 // Components
-import App from "../App";
+import App from '../App';
 
-describe("App Test Suite", () => {
-  it("Should match snapshot when there is a user token", () => {
+describe('App Test Suite', () => {
+  it('renders', () => {
     const props = {
-      hasToken: true
+      hasToken: true,
     };
     const wrapper = shallow(<App {...props} />);
-    expect(wrapper).toMatchSnapshot();
+    expect(wrapper.exists()).toBe(true);
   });
-  it("Should match snapshot when there is not a user token", () => {
+  it('Should match snapshot', () => {
     const props = {
-      hasToken: false
+      hasToken: false,
     };
     const wrapper = shallow(<App {...props} />);
     expect(wrapper).toMatchSnapshot();

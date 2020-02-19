@@ -1,57 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`App Test Suite Should match snapshot when there is a user token 1`] = `
-<BrowserRouter>
-  <Switch>
-    <PrivateRoute
-      component={
-        Object {
-          "$$typeof": Symbol(react.memo),
-          "WrappedComponent": Object {
-            "$$typeof": Symbol(react.forward_ref),
-            "defaultProps": Object {
-              "destroyOnUnmount": true,
-              "enableReinitialize": false,
-              "forceUnregisterOnUnmount": false,
-              "form": "prioritization",
-              "getFormState": [Function],
-              "initialValues": Object {
-                "direction": "desc",
-                "sort": "created",
-              },
-              "keepDirtyOnReinitialize": false,
-              "persistentSubmitErrors": false,
-              "pure": true,
-              "shouldAsyncValidate": [Function],
-              "shouldError": [Function],
-              "shouldValidate": [Function],
-              "shouldWarn": [Function],
-              "submitAsSideEffect": false,
-              "touchOnBlur": true,
-              "touchOnChange": false,
-              "updateUnregisteredFields": false,
-            },
-            "displayName": "ReduxForm",
-            "render": [Function],
-          },
-          "compare": null,
-          "displayName": "Connect(ReduxForm)",
-          "type": [Function],
-        }
-      }
-      hasToken={true}
-      path="/prioritize"
-    />
-    <Route
-      path="/"
-    >
-      <withRouter(Connect(ReduxForm)) />
-    </Route>
-  </Switch>
-</BrowserRouter>
-`;
-
-exports[`App Test Suite Should match snapshot when there is not a user token 1`] = `
+exports[`App Test Suite Should match snapshot 1`] = `
 <BrowserRouter>
   <Switch>
     <PrivateRoute

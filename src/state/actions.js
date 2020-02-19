@@ -1,4 +1,4 @@
-import { createActions } from "redux-actions";
+import { createActions } from 'redux-actions';
 
 export const {
   setRepos,
@@ -10,7 +10,7 @@ export const {
   setRepoSortParams,
   setIssues,
   resetIssues,
-  setIssueSortParams
+  setIssueSortParams,
 } = createActions({
   SET_REPOS: (values = []) => ({ values }),
   RESET_REPOS: () => undefined,
@@ -21,5 +21,5 @@ export const {
   SET_REPO_SORT_PARAMS: (values = {}) => ({ values }),
   SET_ISSUES: (values = []) => ({ values }),
   RESET_ISSUES: () => undefined,
-  SET_ISSUE_SORT_PARAMS: (values = {}) => ({ values })
+  SET_ISSUE_SORT_PARAMS: (values = {}) => ({ values }),
 });

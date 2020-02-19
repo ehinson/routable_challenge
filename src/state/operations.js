@@ -1,8 +1,8 @@
-import axios from "axios";
-import React from "react";
+import axios from 'axios';
+import React from 'react';
 
-import * as repoActions from "./actions";
-import * as repoSelectors from "./selectors";
+import * as repoActions from './actions';
+import * as repoSelectors from './selectors';
 
 export const fetchRepos = (values, history) => async (dispatch, getState) => {
   try {
@@ -15,31 +15,28 @@ export const fetchRepos = (values, history) => async (dispatch, getState) => {
       `https://api.github.com/user/repos?per_page=100&sort=${sort}&direction=${direction}`,
       {
         headers: {
-          Authorization: `Bearer ${values.token}`
-        }
-      }
+          Authorization: `Bearer ${values.token}`,
+        },
+      },
     );
     dispatch(repoActions.setRepos(data));
-    history.push("/prioritize", { hasToken: true });
-    window.localStorage.setItem("userToken", values.token);
+    history.push('/prioritize', { hasToken: true });
+    window.localStorage.setItem('userToken', values.token);
   } catch (error) {
     console.error(error);
-    history.push("/");
+    history.push('/');
   }
 };
 
 export const fetchIssues = (owner, repo) => async (dispatch, getState) => {
   const token = repoSelectors.getUserToken(getState());
   try {
-    console.log("fetching issue", repo);
-    const { data } = await axios.get(
-      `https://api.github.com/repos/${owner}/${repo}/issues`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`
-        }
-      }
-    );
+    console.log('fetching issue', repo);
+    const { data } = await axios.get(`https://api.github.com/repos/${owner}/${repo}/issues`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
 
     dispatch(repoActions.setIssues(data));
   } catch (error) {
