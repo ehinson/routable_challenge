@@ -1,9 +1,9 @@
 import React from 'react';
-import { array, node, oneOfType, string, bool } from 'prop-types';
+import { array, node, oneOfType, string, bool, func, element } from 'prop-types';
 import { Route, Redirect } from 'react-router-dom';
 
 const propTypes = {
-  component: oneOfType([array, node, string]).isRequired,
+  Component: oneOfType([array, node, string, func, element]),
   hasToken: bool.isRequired,
 };
 

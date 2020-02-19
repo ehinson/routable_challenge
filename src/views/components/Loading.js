@@ -11,6 +11,8 @@ const DotWrapper = styled.div`
   display: flex;
   align-items: flex-end;
   position: absolute;
+  align-self: center;
+  margin: auto;
 `;
 
 const Dot = styled.div`

@@ -1,7 +1,7 @@
 /* eslint-disable no-nested-ternary */
 import React from 'react';
 import { array, func, object, bool } from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import _ from 'lodash';
 
 import Issues from '../../containers/Issues';
@@ -24,10 +24,20 @@ const StyledWrapper = styled.div`
   flex: 1;
   flex-direction: column;
   margin: 0 30px;
+  position: relative;
+
+  ${p =>
+    p.isIssueLoading &&
+    css`
+      opacity: 0.5;
+      justify-content: center;
+      transition: all 0.3s;
+    `}
 
   @media (min-width: 768px) {
     flex-direction: row;
     margin: 0 100px;
+    align-items: flex-start;
   }
 `;
 
@@ -43,9 +53,18 @@ const StyledRepoWrapper = styled.div`
   background-color: white;
   flex: 0 0 200px;
   overflow: scroll;
+
   @media (min-width: 768px) {
     flex: 1;
     height: calc(100vh - 200px);
+    max-width: 100%;
+    align-self: flex-start;
+
+    ${p =>
+      p.isIssueLoading &&
+      css`
+        padding-right: 61%;
+      `}
   }
 `;
 
@@ -58,6 +77,12 @@ const StyledIssueWrapper = styled.div`
   align-items: center;
   justify-content: center;
   position: relative;
+  transition: all 0.3s;
+  ${p =>
+    p.isIssueLoading &&
+    css`
+      background-color: white;
+    `}
 
   @media (min-width: 768px) {
     flex: 0 0 61%;
@@ -68,6 +93,18 @@ const StyledFooter = styled.div`
   background-color: green;
   position: sticky;
   bottom: 0;
+`;
+
+const StyledRepo = styled.div`
+  padding: 10px 15px;
+  letter-spacing: 0.2px;
+
+  ${p =>
+    p.active &&
+    css`
+      background-color: #eeeeee;
+      font-weight: 700;
+    `}
 `;
 
 const PrioritizationInterface = ({
@@ -86,25 +123,27 @@ const PrioritizationInterface = ({
       <StyledHeader>
         <h2>Prioritization Interface</h2>
       </StyledHeader>
-      <StyledWrapper>
+      <StyledWrapper isIssueLoading={isIssueLoading}>
         <StyledRepoWrapper>
           <div>
             {repos.map(repo => (
-              <div
+              <StyledRepo
                 key={repo.id}
                 onClick={() => {
                   setActiveRepo(repo);
                   fetchIssues();
                 }}
-                active={activeRepo && repo.id === activeRepo.id ? 'true' : 'false'}
+                active={activeRepo && repo.id === activeRepo.id}
               >
-                {repo.name}
-              </div>
+                <div>
+                  <span>{repo.name}</span>
+                </div>
+              </StyledRepo>
             ))}
           </div>
         </StyledRepoWrapper>
         {activeRepoExists && (
-          <StyledIssueWrapper>
+          <StyledIssueWrapper isIssueLoading={isIssueLoading}>
             {isIssueLoading ? (
               <LoadingDots />
             ) : issues.length > 0 ? (

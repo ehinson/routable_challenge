@@ -1,5 +1,4 @@
-import React from 'react';
-import { func, oneOfType, object, string, array } from 'prop-types';
+import { func, oneOfType, object, array } from 'prop-types';
 import { compose, setPropTypes, lifecycle } from 'recompose';
 import { bindActionCreators } from 'redux';
 
@@ -14,8 +13,6 @@ import * as s from '../../state/selectors';
 const propTypes = {
   mapStateToProps: func,
   mapDispatchToProps: oneOfType([func, object]),
-  owner: string.isRequired,
-  repo: string.isRequired,
   issues: array.isRequired,
 };
 

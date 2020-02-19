@@ -21,10 +21,10 @@ const mapStateToProps = state => ({
   activeRepo: getActiveRepo(state),
 });
 
-const mapDispatchToProps = (dispatch, { owner, repo }) =>
+const mapDispatchToProps = dispatch =>
   bindActionCreators(
     {
-      fetchIssues: (owner, repo) => fetchIssues(owner, repo),
+      fetchIssues,
       setIssues: actions.setIssues,
       resetIssues: actions.resetIssues,
       setActiveRepo: actions.setActiveRepo,
