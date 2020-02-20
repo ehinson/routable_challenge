@@ -1,6 +1,6 @@
 import React from 'react';
 import { Field } from 'redux-form';
-import { object, func, bool } from 'prop-types';
+import { func, bool } from 'prop-types';
 import styled from 'styled-components';
 import { required } from 'redux-form-validators';
 
@@ -10,7 +10,6 @@ import 'regenerator-runtime';
 import InputField from './InputField';
 
 const propTypes = {
-  error: object.isRequired,
   handleSubmit: func.isRequired,
   pristine: bool.isRequired,
   reset: func.isRequired,
@@ -36,7 +35,7 @@ const StyledButton = styled.button`
 `;
 
 const TokenForm = props => {
-  const { error, handleSubmit, pristine, reset, submitting, fetchRepos } = props;
+  const { handleSubmit, pristine, reset, submitting, fetchRepos } = props;
   return (
     <StyledFormWrapper onSubmit={handleSubmit(fetchRepos)}>
       <Field

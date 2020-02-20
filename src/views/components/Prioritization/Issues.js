@@ -1,5 +1,5 @@
 import React from 'react';
-import { array, func } from 'prop-types';
+import { array, func, object } from 'prop-types';
 import { Field } from 'redux-form';
 import styled from 'styled-components';
 
@@ -9,6 +9,7 @@ import moment from 'moment';
 const propTypes = {
   issues: array.isRequired,
   fetchIssues: func.isRequired,
+  activeRepo: object,
 };
 
 const StyledRepoTitle = styled.h2`
