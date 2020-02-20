@@ -115,6 +115,7 @@ const StyledFooter = styled.div`
 const StyledRepo = styled.div`
   padding: 10px 15px;
   letter-spacing: 0.2px;
+  outline: none;
 
   ${p =>
     p.active &&
