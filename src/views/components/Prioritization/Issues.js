@@ -11,9 +11,12 @@ const propTypes = {
   fetchIssues: func.isRequired,
 };
 
-const StyledRepoTitle = styled.h3`
+const StyledRepoTitle = styled.h2`
   margin: 30px 0;
   text-align: right;
+  color: #286c81;
+  font-weight: 400;
+  text-transform: uppercase;
 `;
 
 const StyledWrapper = styled.div`
@@ -92,22 +95,26 @@ const Issues = ({ issues, fetchIssues, activeRepo }) => {
     <StyledWrapper>
       <StyledRepoTitle>{activeRepo.name}</StyledRepoTitle>
       <StyledSortWrapper>
-        <span>Sort:</span>
-        <Field name="sort" component="select" onChange={fetchIssues}>
-          {Object.keys(sortAttributes).map(attribute => (
-            <option key={attribute} value={sortAttributes[attribute]}>
-              {attribute}
-            </option>
-          ))}
-        </Field>
-        <span>Order:</span>
-        <Field name="direction" component="select" onChange={fetchIssues}>
-          {['asc', 'desc'].map(direction => (
-            <option key={direction} value={direction}>
-              {direction}
-            </option>
-          ))}
-        </Field>
+        <label>
+          Sort:
+          <Field name="sort" component="select" onChange={fetchIssues}>
+            {Object.keys(sortAttributes).map(attribute => (
+              <option key={attribute} value={sortAttributes[attribute]}>
+                {attribute}
+              </option>
+            ))}
+          </Field>
+        </label>
+        <label>
+          Order:
+          <Field name="direction" component="select" onChange={fetchIssues}>
+            {['asc', 'desc'].map(direction => (
+              <option key={direction} value={direction}>
+                {direction}
+              </option>
+            ))}
+          </Field>
+        </label>
       </StyledSortWrapper>
       {issues.length > 0 &&
         issues.map(issue => (

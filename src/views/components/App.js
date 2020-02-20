@@ -24,10 +24,6 @@ const GlobalStyle = createGlobalStyle`
     flex-direction: column;
     position: relative;
   }
-
-  h1, h2, h3, h4 {
-    font-family: 'Poppins', sans-serif;
-  }
 `;
 
 const App = ({ hasToken }) => {

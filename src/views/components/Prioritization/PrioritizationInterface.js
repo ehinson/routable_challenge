@@ -49,6 +49,13 @@ const StyledHeader = styled.div`
   font-size: 0.85em;
   text-align: right;
 
+  h1 {
+    text-transform: uppercase;
+    font-size: 14px;
+    font-weight: 400;
+    text-align: right;
+  }
+
   @media (min-width: 768px) {
     flex: 1;
     margin: 0 100px;
@@ -135,24 +142,23 @@ const PrioritizationInterface = ({
 
   return (
     <>
-      <StyledHeader>
-        <p>Github Prioritization Interface</p>
+      <StyledHeader role="banner">
+        <h1>Github Prioritization Interface</h1>
       </StyledHeader>
-      <StyledWrapper isIssueLoading={isIssueLoading}>
-        <StyledRepoWrapper>
-          <div>
-            {repos.map(repo => (
-              <StyledRepo
-                key={repo.id}
-                onClick={() => handleRepoClick(repo)}
-                active={activeRepo && repo.id === activeRepo.id}
-              >
-                <div>
-                  <span>{repo.name}</span>
-                </div>
-              </StyledRepo>
-            ))}
-          </div>
+      <StyledWrapper isIssueLoading={isIssueLoading} role="main">
+        <StyledRepoWrapper tabIndex="0">
+          {repos.map(repo => (
+            <StyledRepo
+              key={repo.id}
+              onClick={() => handleRepoClick(repo)}
+              active={activeRepo && repo.id === activeRepo.id}
+              tabIndex="0"
+            >
+              <div>
+                <span>{repo.name}</span>
+              </div>
+            </StyledRepo>
+          ))}
         </StyledRepoWrapper>
         {activeRepoExists && (
           <StyledIssueWrapper isIssueLoading={isIssueLoading}>
