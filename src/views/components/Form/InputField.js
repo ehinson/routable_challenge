@@ -14,12 +14,27 @@ export const StyledInput = styled.input`
   -webkit-appearance: none;
 `;
 
-const Input = ({ input, label, type, meta: { touched, error } }) => (
+const StyledLabel = styled.label`
+  font-size: 0.85em;
+  text-transform: uppercase;
+  text-align: center;
+`;
+
+const StyledError = styled.strong`
+  color: red;
+  font-size: 0.85em;
+  text-transform: uppercase;
+  font-style: italic;
+  text-align: center;
+  display: inline-block;
+`;
+
+const Input = ({ input, label, type, meta: { touched, error }, placeholder }) => (
   <div>
-    <label>{label}</label>
+    <StyledLabel>{label}</StyledLabel>
     <div>
-      <StyledInput {...input} placeholder={label} type={type} />
-      {touched && error && <span>{error}</span>}
+      <StyledInput {...input} placeholder={placeholder} type={type} />
+      {touched && error && <StyledError>{error}</StyledError>}
     </div>
   </div>
 );
@@ -29,6 +44,7 @@ Input.propTypes = {
   label: oneOfType([string, node]),
   type: string.isRequired,
   meta: object.isRequired,
+  placeholder: string,
 };
 
 export default Input;

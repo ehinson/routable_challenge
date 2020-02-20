@@ -116,6 +116,8 @@ const StyledRepo = styled.div`
   padding: 10px 15px;
   letter-spacing: 0.2px;
   outline: none;
+  text-transform: uppercase;
+  font-size: 0.85em;
 
   ${p =>
     p.active &&
