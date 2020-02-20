@@ -10,12 +10,14 @@ exports[`PrioritizationInterface Test Suite Should match snapshot 1`] = `
     </h1>
   </PrioritizationInterface__StyledHeader>
   <PrioritizationInterface__StyledWrapper
+    isIssueLoading={false}
     role="main"
   >
     <PrioritizationInterface__StyledRepoWrapper
       tabIndex="0"
     >
       <PrioritizationInterface__StyledRepo
+        active={false}
         key="1234567890"
         onClick={[Function]}
         tabIndex="0"

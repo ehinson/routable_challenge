@@ -8,7 +8,7 @@ export const fetchRepos = (values, history) => async (dispatch, getState) => {
   try {
     dispatch(repoActions.setToken(values.token));
 
-    const { data } = await axios.get(`https://api.github.com/user/repos?per_page=100`, {
+    const { data } = await axios.get(`https://api.github.com/user/repos?per_page=25`, {
       headers: {
         Authorization: `Bearer ${values.token}`,
       },
