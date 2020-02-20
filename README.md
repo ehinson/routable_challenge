@@ -1,7 +1,5 @@
 # Routable Coding Challenge
 
-One Paragraph of project description goes here
-
 ## The Challenge
 
 For this exercise, you will consume GitHub issues to create a simple interface that will
@@ -30,8 +28,6 @@ in the root, then:
 ```bash
 npm start
 ```
-
-End with an example of getting some data out of the system or using it for a little demo
 
 ## Running the tests
 

@@ -65,6 +65,8 @@ const MockImage = styled.div`
 
 const RealImage = styled.img`
   grid-area: avatar;
+  width: 40px;
+  border: 1px solid #aaaaaa;
 `;
 
 const Title = styled.div`
@@ -119,7 +121,7 @@ const Issues = ({ issues, fetchIssues, activeRepo }) => {
       {issues.length > 0 &&
         issues.map(issue => (
           <StyledIssue key={issue.id}>
-            {issues.assignee ? (
+            {issue.assignee && issue.assignee.avatar_url ? (
               <RealImage src={issue.assignee.avatar_url} alt={`${issue.assignee.login}'s avatar`} />
             ) : (
               <MockImage />

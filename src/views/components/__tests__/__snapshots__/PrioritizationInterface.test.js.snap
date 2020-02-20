@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PrioritizationInterface Test Suite Should match snapshot 1`] = `
+<Fragment>
+  <PrioritizationInterface__StyledHeader
+    role="banner"
+  >
+    <h1>
+      Github Prioritization Interface
+    </h1>
+  </PrioritizationInterface__StyledHeader>
+  <PrioritizationInterface__StyledWrapper
+    role="main"
+  >
+    <PrioritizationInterface__StyledRepoWrapper
+      tabIndex="0"
+    >
+      <PrioritizationInterface__StyledRepo
+        key="1234567890"
+        onClick={[Function]}
+        tabIndex="0"
+      >
+        <div>
+          <span>
+            My_cool_repo
+          </span>
+        </div>
+      </PrioritizationInterface__StyledRepo>
+    </PrioritizationInterface__StyledRepoWrapper>
+  </PrioritizationInterface__StyledWrapper>
+  <PrioritizationInterface__StyledFooter />
+</Fragment>
+`;
